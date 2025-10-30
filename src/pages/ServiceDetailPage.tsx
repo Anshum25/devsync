@@ -9,6 +9,132 @@ const ServiceDetailPage = () => {
   const { slug } = useParams();
 
   const serviceData: Record<string, any> = {
+    // New slugs from ServicesPage
+    "full-stack-development": {
+      title: "Full Stack Development",
+      description: "End‑to‑end web apps with modern frontends and scalable backends.",
+      image: "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=1200&h=600&fit=crop",
+      features: [
+        "React/Next.js frontends with Tailwind and shadcn/ui",
+        "Node.js/Express or Python/FastAPI backends",
+        "Secure authentication and role-based access",
+        "REST/GraphQL APIs and real-time features",
+        "Testing and cloud-native deployments",
+        "Analytics, monitoring, and observability"
+      ],
+      process: [
+        "Discovery & Planning",
+        "UI/UX Design & Prototyping",
+        "Development & Integration",
+        "Testing & Quality Assurance",
+        "Deployment & Launch",
+        "Maintenance & Support"
+      ]
+    },
+    "database-integration": {
+      title: "Database Integration",
+      description: "Design, integrate, and optimize databases for performance and reliability.",
+      image: "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=1200&h=600&fit=crop",
+      features: [
+        "Schema design for PostgreSQL/MySQL/MongoDB",
+        "Migrations, indexing, and query optimization",
+        "Data pipelines, ETL, and backups",
+        "Secure access, encryption, and auditing",
+        "Replication and high availability setups",
+        "Performance tuning and cost optimization"
+      ],
+      process: [
+        "Requirements & Modeling",
+        "Schema Design & POCs",
+        "Integration & Migrations",
+        "Load Testing & Tuning",
+        "Backup/HA Configuration",
+        "Monitoring & Maintenance"
+      ]
+    },
+    "python-development": {
+      title: "Python Development",
+      description: "APIs, automation, and AI tooling powered by Python.",
+      image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=600&fit=crop",
+      features: [
+        "FastAPI/Django REST backends",
+        "Task automation and ETL jobs",
+        "AI/ML integration and embeddings",
+        "Async workers and scheduling",
+        "Testing, linting, and packaging",
+        "Cloud functions and serverless"
+      ],
+      process: [
+        "Requirements Analysis",
+        "Architecture & Prototyping",
+        "Implementation",
+        "Validation & Benchmarks",
+        "Deployment",
+        "Support & Iteration"
+      ]
+    },
+    "backend-engineering": {
+      title: "Backend Engineering",
+      description: "Secure, high‑performance services built for scale.",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&h=600&fit=crop",
+      features: [
+        "Microservices and modular monoliths",
+        "OAuth2/JWT auth and rate limiting",
+        "Caching with Redis and message queues",
+        "Observability: logs, metrics, traces",
+       
+      ],
+      process: [
+        "Architecture & RFCs",
+        "Service Development",
+        "Integration & Contracts",
+        "Performance & Security Testing",
+        "Release & Rollout",
+        "Monitoring & SLOs"
+      ]
+    },
+    "digital-marketing": {
+      title: "Digital Marketing",
+      description: "Data‑driven SEO, content, and paid campaigns that convert.",
+      image: "https://images.unsplash.com/photo-1557838923-2985c318be48?w=1200&h=600&fit=crop",
+      features: [
+        "Technical SEO and site health",
+        "Content strategy and landing pages",
+        "Google Ads and social campaigns",
+        "Analytics, funnels, and attribution",
+        "A/B testing and CRO",
+        "Reporting dashboards"
+      ],
+      process: [
+        "Audit & Goals",
+        "Strategy & Calendar",
+        "Campaign Setup",
+        "Optimization",
+        "Reporting",
+        "Scale"
+      ]
+    },
+    "ui-ux-branding": {
+      title: "UI/UX & Branding",
+      description: "Delightful interfaces and cohesive brand systems.",
+      image: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1200&h=600&fit=crop",
+      features: [
+        "User research and flows",
+        "Design systems and tokens",
+        "High‑fidelity prototypes",
+        "Accessibility and usability testing",
+        "Brand identity and guidelines",
+        "Developer‑ready handoff"
+      ],
+      process: [
+        "Research & Discovery",
+        "Wireframes & Concepts",
+        "Visual Design",
+        "Prototyping & Testing",
+        "Handoff",
+        "Documentation"
+      ]
+    },
     "web-development": {
       title: "Web Development",
       description: "Build lightning-fast, scalable, and modern web applications",
@@ -137,7 +263,7 @@ const ServiceDetailPage = () => {
     }
   };
 
-  const service = serviceData[slug || ""] || serviceData["web-development"];
+  const service = serviceData[slug || ""] || serviceData["full-stack-development"];
 
   return (
     <div className="min-h-screen bg-background">
@@ -158,7 +284,7 @@ const ServiceDetailPage = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
                   {service.title}
                 </h1>
-                <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+                <p style={{ marginBottom: "20px" }} className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
                   {service.description}
                 </p>
                 <Link to="/contact">

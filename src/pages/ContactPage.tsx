@@ -1,9 +1,24 @@
+import { useEffect } from "react";
 import Contact from "@/components/Contact";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 
 const ContactPage = () => {
+  useEffect(() => {
+    // Scroll to the Let's Connect section after mount
+    const scrollToSection = () => {
+      const el = document.getElementById("contact");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    };
+    // A small timeout gives the section time to render in SPA navigation
+    const t = setTimeout(scrollToSection, 50);
+    return () => clearTimeout(t);
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
