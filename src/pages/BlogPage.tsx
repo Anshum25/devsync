@@ -15,7 +15,8 @@
     let active = true;
     const fetchNews = async () => {
       try {
-        const res = await fetch("http://localhost:5001/api/news/top-headlines?country=in&pageSize=30");
+       const API_BASE = (import.meta as any).env?.VITE_API_URL;
+        const res = await fetch(`${API_BASE}/api/news/top-headlines?country=in&pageSize=30`);
         if (!res.ok) {
           const text = await res.text();
           console.error("/api/news/top-headlines non-200:", res.status, text);
