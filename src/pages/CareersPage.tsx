@@ -76,13 +76,17 @@ const CareersPage = () => {
       toast.error("Please fill in all fields");
       return;
     }
-    try {
+   try {
       setSubmitting(true);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
       const res = await fetch(`${API_BASE}/api/careers/apply`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, resume: resumeFile || undefined }),
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
       if (!res.ok) {
         const text = await res.text();
         toast.error(`Failed to submit: ${res.status}`);
