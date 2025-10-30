@@ -30,9 +30,9 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16 space-y-4 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+            {/* <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
               Trusted by <span className="text-gradient">Innovators Worldwide</span>
-            </h2>
+            </h2> */}
             <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
               Don't just take our word for it - hear from our clients
             </p>

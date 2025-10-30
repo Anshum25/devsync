@@ -10,16 +10,16 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[88vh] md:min-h-[92vh] flex items-center justify-center overflow-hidden py-24 md:py-28">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
 
       {/* Animated Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:64px_64px]" />
 
-      {/* Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: "1s" }} />
+      {/* Glow Effects (softened) */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/15 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/15 rounded-full blur-[120px]" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-5xl mx-auto text-center space-y-8 animate-fade-in-up">
@@ -30,8 +30,10 @@ const Hero = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-tight">
-            We Build Products That
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
+            We Build Products
+            <br className="hidden md:block" />
+            That
             <span className="block text-gradient">Define the Future</span>
           </h1>
 
@@ -61,7 +63,7 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pt-10 md:pt-12 max-w-4xl mx-auto">
             {[
               { number: "50+", label: "Projects Delivered" },
               { number: "30+", label: "Happy Clients" },
@@ -70,7 +72,7 @@ const Hero = () => {
             ].map((stat, index) => (
               <div key={index} className="text-center space-y-2 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="text-3xl md:text-4xl font-bold text-gradient">{stat.number}</div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-sm md:text-base text-muted-foreground">{stat.label}</div>
               </div>
             ))}
           </div>

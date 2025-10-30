@@ -94,7 +94,7 @@ const ServicesPage = () => {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="glass-card rounded-2xl p-8 group glow-on-hover animate-fade-in-up"
+                className="glass-card rounded-2xl p-8 group glow-on-hover animate-fade-in-up flex flex-col"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
@@ -117,7 +117,7 @@ const ServicesPage = () => {
                   ))}
                 </div>
 
-                <Link to={`/services/${service.slug}`}>
+                <Link to={`/services/${service.slug}`} className="mt-auto">
                   <Button variant="outline" className="w-full group/btn">
                     Learn More
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
