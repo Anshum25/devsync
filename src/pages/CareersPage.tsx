@@ -15,14 +15,18 @@ const CareersPage = () => {
     position: "",
     message: ""
   });
+  const [open, setOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [resumeFile, setResumeFile] = useState<{ filename: string; mime: string; contentBase64: string } | null>(null);
+  const API_BASE = (import.meta as any).env?.VITE_API_URL || 'https://devsync-api-aqy2.onrender.com';
 
   const openings = [
     {
-      title: "Senior Frontend Developer",
+      title: "Frontend Developer",
       type: "Full-Time",
       location: "Remote",
       description: "We're looking for an experienced React developer to build amazing user interfaces.",
-      requirements: ["1+ years React experience", "TypeScript proficiency", "Design system knowledge"]
+      requirements: ["1+ years React experience", "JavaScript proficiency", "Design system knowledge,Tailwind CSS"]
     },
     {
       title: "UI/UX Designer",
@@ -39,24 +43,62 @@ const CareersPage = () => {
       requirements: ["Node.js/Python experience", "Database design", "API development"]
     },
     {
-      title: "AI/ML Engineer",
-      type: "Full-Time",
-      location: "Remote",
-      description: "Develop intelligent solutions using machine learning and AI technologies.",
-      requirements: ["Python & TensorFlow", "ML model deployment", "NLP experience"]
-    }
+  title: "Digital Marketing",
+  type: "Full-Time",
+  location: "Remote",
+  description: "Plan, execute, and optimize online marketing campaigns to increase brand awareness and drive engagement across digital platforms.",
+  requirements: [
+    "SEO & SEM expertise",
+    "Social media marketing experience",
+    "Content strategy and analytics",
+    "Google Ads and Meta Ads proficiency"
+  ]
+},
+{
+  title: "Full Stack Developer",
+  type: "Full-Time",
+  location: "Remote",
+  description: "Design, develop, and maintain dynamic web applications from front-end interfaces to back-end systems, ensuring high performance and scalability.",
+  requirements: [
+    "Proficiency in React.js and Node.js",
+    "Experience with MongoDB and Express.js",
+    "RESTful API design and integration",
+    "Version control using Git and GitHub",
+    "Strong problem-solving and debugging skills"
+  ]
+}
+
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!formData.name || !formData.email || !formData.position || !formData.message) {
       toast.error("Please fill in all fields");
       return;
     }
-
-    toast.success("Application submitted! We'll be in touch soon.");
-    setFormData({ name: "", email: "", position: "", message: "" });
+    try {
+      setSubmitting(true);
+      const res = await fetch(`${API_BASE}/api/careers/apply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, resume: resumeFile || undefined }),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        toast.error(`Failed to submit: ${res.status}`);
+        console.error('[careers] submit error', res.status, text);
+        return;
+      }
+      toast.success("Application submitted!");
+      setFormData({ name: "", email: "", position: "", message: "" });
+      setResumeFile(null);
+      setOpen(false);
+    } catch (err) {
+      toast.error("Network error submitting application");
+      console.error(err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -144,7 +186,7 @@ const CareersPage = () => {
                     <Button
                       onClick={() => {
                         setFormData({ ...formData, position: job.title });
-                        document.getElementById("application")?.scrollIntoView({ behavior: "smooth" });
+                        setOpen(true);
                       }}
                       className="bg-primary hover:bg-primary/90"
                     >
@@ -169,81 +211,60 @@ const CareersPage = () => {
         </div>
       </section>
 
-      {/* Application Form */}
-      <section id="application" className="py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Apply Now</h2>
-
-            <div className="glass-card rounded-2xl p-8 md:p-12 animate-fade-in-up">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Full Name *
-                  </label>
-                  <Input
-                    id="name"
-                    type="text"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Enter your name"
-                    className="bg-background/50 border-border focus:border-primary"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email Address *
-                  </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="name@example.com"
-                    className="bg-background/50 border-border focus:border-primary"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="position" className="block text-sm font-medium mb-2">
-                    Position Applying For *
-                  </label>
-                  <Input
-                    id="position"
-                    type="text"
-                    value={formData.position}
-                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                    placeholder="e.g., Frontend Developer"
-                    className="bg-background/50 border-border focus:border-primary"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Cover Letter / Message *
-                  </label>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us about yourself and why you'd be a great fit..."
-                    rows={6}
-                    className="bg-background/50 border-border focus:border-primary resize-none"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full bg-primary hover:bg-primary/90 text-white py-6 text-lg shadow-lg hover:shadow-xl transition-all"
-                >
-                  Submit Application
-                </Button>
-              </form>
-            </div>
+      {open && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => !submitting && setOpen(false)} />
+          <div className="relative w-full max-w-xl mx-auto glass-card rounded-2xl p-8 md:p-10">
+            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center">Apply Now</h2>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium mb-2">Full Name *</label>
+                <Input id="name" type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Enter your name" className="bg-background/50 border-border focus:border-primary" />
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">Email Address *</label>
+                <Input id="email" type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="name@example.com" className="bg-background/50 border-border focus:border-primary" />
+              </div>
+              <div>
+                <label htmlFor="position" className="block text-sm font-medium mb-2">Position Applying For *</label>
+                <Input id="position" type="text" value={formData.position} onChange={(e) => setFormData({ ...formData, position: e.target.value })} placeholder="e.g., Frontend Developer" className="bg-background/50 border-border focus:border-primary" />
+              </div>
+              <div>
+                <label htmlFor="resume" className="block text-sm font-medium mb-2">Resume / CV (PDF/DOC, up to 5MB)</label>
+                <Input
+                  id="resume"
+                  type="file"
+                  accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (!f) { setResumeFile(null); return; }
+                    if (f.size > 5 * 1024 * 1024) { toast.error('File too large (max 5MB)'); e.currentTarget.value = ''; return; }
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                      const result = reader.result as string;
+                      const base64 = result.includes(',') ? result.split(',')[1] : result;
+                      setResumeFile({ filename: f.name, mime: f.type || 'application/octet-stream', contentBase64: base64 });
+                    };
+                    reader.onerror = () => {
+                      toast.error('Failed to read file');
+                    };
+                    reader.readAsDataURL(f);
+                  }}
+                  className="bg-background/50 border-border focus:border-primary"
+                />
+                {resumeFile && <div className="text-xs text-muted-foreground mt-1">Attached: {resumeFile.filename}</div>}
+              </div>
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium mb-2">Cover Letter / Message *</label>
+                <Textarea id="message" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} placeholder="Tell us about yourself and why you'd be a great fit..." rows={6} className="bg-background/50 border-border focus:border-primary resize-none" />
+              </div>
+              <Button type="submit" disabled={submitting} className="w-full bg-primary hover:bg-primary/90 text-white py-6 text-lg shadow-lg hover:shadow-xl transition-all">
+                {submitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
+            </form>
           </div>
         </div>
-      </section>
+      )}
 
       <Footer />
       <FloatingCTA />

@@ -11,8 +11,10 @@ const Contact = () => {
     email: "",
     message: ""
   });
+  const [submitting, setSubmitting] = useState(false);
+  const API_BASE = (import.meta as any).env?.VITE_API_URL ;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -28,8 +30,27 @@ const Contact = () => {
       return;
     }
 
-    toast.success("Thank you! We'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    try {
+      setSubmitting(true);
+      const res = await fetch(`${API_BASE}/api/contact/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        console.error('[contact] send error', res.status, text);
+        toast.error(`Failed to send message (${res.status})`);
+        return;
+      }
+      toast.success("Thank you! We'll get back to you soon.");
+      setFormData({ name: "", email: "", message: "" });
+    } catch (err) {
+      console.error(err);
+      toast.error('Network error sending message');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleWhatsApp = () => {
@@ -143,9 +164,10 @@ const Contact = () => {
 
                 <Button
                   type="submit"
+                  disabled={submitting}
                   className="w-full bg-primary hover:bg-primary/90 text-white py-6 text-lg shadow-lg hover:shadow-xl transition-all"
                 >
-                  Send Message
+                  {submitting ? 'Sending...' : 'Send Message'}
                 </Button>
               </form>
             </div>

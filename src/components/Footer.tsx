@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -26,7 +26,7 @@ const Footer = () => {
               <div className="flex gap-4">
                
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/company/devsync-innovation/about/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary/10 transition-colors"
@@ -34,12 +34,12 @@ const Footer = () => {
                   <Linkedin className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://www.instagram.com/devsyncinnovation/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg glass-card flex items-center justify-center hover:bg-primary/10 transition-colors"
                 >
-                  <Twitter className="w-5 h-5" />
+                  <Instagram className="w-5 h-5" />
                 </a>
               </div>
             </div>

@@ -1,21 +1,22 @@
- import { useEffect, useMemo, useState } from "react";
- import Navbar from "@/components/Navbar";
- import Footer from "@/components/Footer";
- import FloatingCTA from "@/components/FloatingCTA";
- import { Calendar, User, ArrowRight } from "lucide-react";
- import { Input } from "@/components/ui/input";
+import { useEffect, useMemo, useState } from "react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import FloatingCTA from "@/components/FloatingCTA";
+import { Calendar, User, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+ 
 
- const BlogPage = () => {
+const BlogPage = () => {
   const [search, setSearch] = useState("");
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
-
   useEffect(() => {
     let active = true;
     const fetchNews = async () => {
       try {
-        const res = await fetch("http://localhost:5001/api/news/top-headlines?country=in&pageSize=30");
+         const API_BASE = (import.meta as any).env?.VITE_API_URL;
+        const res = await fetch(`${API_BASE}/api/news/top-headlines?country=in&pageSize=30`);
         if (!res.ok) {
           const text = await res.text();
           console.error("/api/news/top-headlines non-200:", res.status, text);
@@ -57,7 +58,7 @@
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/5" />
@@ -69,7 +70,7 @@
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
               Expert perspectives on technology, design, and digital innovation.
             </p>
-            
+
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto pt-4">
               <Input
@@ -95,8 +96,8 @@
               <a href={filtered[0]?.url} target="_blank" rel="noopener noreferrer" className="group">
                 <div className="glass-card rounded-2xl overflow-hidden grid md:grid-cols-2 gap-8 glow-on-hover animate-fade-in-up">
                   <div className="relative h-64 md:h-auto overflow-hidden">
-                    <img 
-                      src={filtered[0]?.urlToImage || "https://via.placeholder.com/800x600?text=News"} 
+                    <img
+                      src={filtered[0]?.urlToImage || "https://via.placeholder.com/800x600?text=News"}
                       alt={filtered[0]?.title || "Featured"}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -132,7 +133,7 @@
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl font-bold mb-8">Latest Articles</h2>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filtered.slice(1).map((post, index) => (
                 <a
@@ -144,13 +145,13 @@
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={post.urlToImage || "https://via.placeholder.com/800x600?text=News"} 
+                    <img
+                      src={post.urlToImage || "https://via.placeholder.com/800x600?text=News"}
                       alt={post.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  
+
                   <div className="p-6">
                     <div className="text-primary text-sm font-medium mb-2">{post.source?.name || "News"}</div>
                     <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
@@ -159,7 +160,7 @@
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                       {post.description}
                     </p>
-                    
+
                     <div className="flex items-center justify-between text-xs text-muted-foreground">
                       <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                       <span className="inline-flex items-center gap-1">Read <ArrowRight className="w-3 h-3" /></span>
