@@ -5,7 +5,7 @@ const Services = () => {
   const services = [
   {
     icon: Layers,
-    title: "Full Stack Development",
+    title: "Website Development",
     description:
       "End-to-end web applications built with React, Next.js, Node.js, and modern backend frameworks for scalability and performance.",
     gradient: "from-blue-500 to-cyan-500",
@@ -69,8 +69,22 @@ const Services = () => {
                 className="glass-card rounded-xl p-8 group cursor-pointer glow-on-hover animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <service.icon className="w-7 h-7 text-white" />
+                <div className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  {(() => {
+                    const gid = `svc-grad-home-${index}`;
+                    const Icon = service.icon;
+                    return (
+                      <Icon className="w-8 h-8" color={`url(#${gid})`}>
+                        <defs>
+                          <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#6EA2FF" />
+                            <stop offset="40%" stopColor="#7EA8FF" />
+                            <stop offset="100%" stopColor="#F2CC59" />
+                          </linearGradient>
+                        </defs>
+                      </Icon>
+                    );
+                  })()}
                 </div>
                 <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
                   {service.title}

@@ -5,7 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 
-const Contact = () => {
+type ContactProps = { showHeading?: boolean; showSubtext?: boolean };
+
+const Contact = ({ showHeading = true, showSubtext = true }: ContactProps) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,12 +47,16 @@ const Contact = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16 space-y-4 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
-              Let's <span className="text-gradient">Connect</span>
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Ready to start your project? Get in touch and let's create something extraordinary together.
-            </p>
+            {showHeading && (
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+                Let's <span className="text-gradient">Connect</span>
+              </h2>
+            )}
+            {showSubtext && (
+              <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+                Ready to start your project? Get in touch and let's create something extraordinary together.
+              </p>
+            )}
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">

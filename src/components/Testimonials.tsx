@@ -30,6 +30,9 @@ const Testimonials = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16 space-y-4 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+              Client <span className="text-gradient">Reviews</span>
+            </h2>
             {/* <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
               Trusted by <span className="text-gradient">Innovators Worldwide</span>
             </h2> */}

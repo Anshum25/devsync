@@ -11,7 +11,7 @@ const ServicesPage = () => {
   const services = [
     {
       icon: Layers,
-      title: "Full Stack Development",
+      title: "Website Development",
       slug: "full-stack-development",
       description:
         "End-to-end web applications built with React, Next.js, Node.js, and modern backend frameworks for scalability and performance.",
@@ -97,8 +97,22 @@ const ServicesPage = () => {
                 className="glass-card rounded-2xl p-8 group glow-on-hover animate-fade-in-up flex flex-col"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <service.icon className="w-8 h-8 text-white" />
+                <div className="w-16 h-16 rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  {(() => {
+                    const gid = `svc-grad-page-${index}`;
+                    const Icon = service.icon;
+                    return (
+                      <Icon className="w-8 h-8" color={`url(#${gid})`}>
+                        <defs>
+                          <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#6EA2FF" />
+                            <stop offset="40%" stopColor="#7EA8FF" />
+                            <stop offset="100%" stopColor="#F2CC59" />
+                          </linearGradient>
+                        </defs>
+                      </Icon>
+                    );
+                  })()}
                 </div>
 
                 <h3 className="text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">
@@ -134,7 +148,7 @@ const ServicesPage = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto glass-card rounded-2xl p-12 text-center animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Start Your Project?
+              Ready to Start Your <span className="text-gradient">Project</span>?
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
               Let's discuss how we can help bring your vision to life with our expert services.

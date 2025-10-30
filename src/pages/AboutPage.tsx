@@ -89,7 +89,7 @@ const AboutPage = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 animate-fade-in">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Values</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Our <span className="text-gradient">Values</span></h2>
               <p className="text-xl text-muted-foreground">The principles that guide everything we do</p>
             </div>
 
@@ -100,8 +100,22 @@ const AboutPage = () => {
                   className="glass-card rounded-xl p-8 glow-on-hover animate-fade-in-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                    <value.icon className="w-7 h-7 text-white" />
+                  <div className="w-14 h-14 rounded-lg flex items-center justify-center mb-4">
+                    {(() => {
+                      const gid = `about-page-grad-${index}`;
+                      const Icon = value.icon as any;
+                      return (
+                        <Icon className="w-7 h-7" color={`url(#${gid})`}>
+                          <defs>
+                            <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stopColor="#6EA2FF" />
+                              <stop offset="40%" stopColor="#7EA8FF" />
+                              <stop offset="100%" stopColor="#F2CC59" />
+                            </linearGradient>
+                          </defs>
+                        </Icon>
+                      );
+                    })()}
                   </div>
                   <h3 className="text-2xl font-semibold mb-3">{value.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{value.description}</p>
@@ -150,15 +164,15 @@ const AboutPage = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Work Culture</h2>
             <div className="grid md:grid-cols-3 gap-6">
               <div>
-                <h3 className="text-xl font-semibold mb-2 text-primary">Remote-First</h3>
+                <h3 className="text-xl font-semibold mb-2 text-primary"><span className="text-gradient">Remote-First</span></h3>
                 <p className="text-muted-foreground">Work from anywhere, anytime. We embrace flexibility and trust our team.</p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2 text-primary">Collaborative</h3>
+                <h3 className="text-xl font-semibold mb-2 text-primary"><span className="text-gradient">Collaborative</span></h3>
                 <p className="text-muted-foreground">Open communication, peer reviews, and shared knowledge keep us growing.</p>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2 text-primary">Creative</h3>
+                <h3 className="text-xl font-semibold mb-2 text-primary"><span className="text-gradient">Creative</span></h3>
                 <p className="text-muted-foreground">We encourage experimentation and celebrate unique solutions to complex problems.</p>
               </div>
             </div>

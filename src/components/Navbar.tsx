@@ -6,6 +6,9 @@ import { Menu, X } from "lucide-react";
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,22 +43,22 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center space-x-6">
-          <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/" className={`${isActive('/') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Home
           </Link>
-          <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/about" className={`${isActive('/about') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             About
           </Link>
-          <Link to="/services" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/services" className={`${isActive('/services') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Services
           </Link>
           {/* <Link to="/portfolio" className="text-muted-foreground hover:text-foreground transition-colors">
             Portfolio
           </Link> */}
-          <Link to="/careers" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/careers" className={`${isActive('/careers') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Careers
           </Link>
-          <Link to="/blog" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/blog" className={`${isActive('/blog') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Blog
           </Link>
           <Link to="/contact">
@@ -77,22 +80,22 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="lg:hidden glass-card mt-4 mx-6 rounded-lg p-6 space-y-4 animate-fade-in">
-          <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left ${isActive('/') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Home
           </Link>
-          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left ${isActive('/about') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             About
           </Link>
-          <Link to="/services" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/services" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left ${isActive('/services') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Services
           </Link>
           {/* <Link to="/portfolio" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left text-muted-foreground hover:text-foreground transition-colors">
             Portfolio
           </Link> */}
-          <Link to="/careers" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/careers" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left ${isActive('/careers') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Careers
           </Link>
-          <Link to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="block w-full text-left text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/blog" onClick={() => setIsMobileMenuOpen(false)} className={`block w-full text-left ${isActive('/blog') ? 'text-gradient font-semibold' : 'text-muted-foreground hover:text-foreground'} transition-colors`}>
             Blog
           </Link>
           <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
