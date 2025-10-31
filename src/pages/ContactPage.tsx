@@ -6,17 +6,10 @@ import FloatingCTA from "@/components/FloatingCTA";
 
 const ContactPage = () => {
   useEffect(() => {
-    // Scroll to the Let's Connect section after mount
-    const scrollToSection = () => {
-      const el = document.getElementById("contact");
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    };
-    // A small timeout gives the section time to render in SPA navigation
-    const t = setTimeout(scrollToSection, 50);
+    // Ensure we start at the top when navigating to /contact
+    const t = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 0);
     return () => clearTimeout(t);
   }, []);
   return (
@@ -38,7 +31,7 @@ const ContactPage = () => {
         </div>
       </section>
 
-      <Contact />
+      <Contact showHeading={false} showSubtext={false} />
       <Footer />
       <FloatingCTA />
     </div>

@@ -56,8 +56,22 @@ const About = () => {
                 className="glass-card rounded-xl p-8 glow-on-hover animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                  <value.icon className="w-6 h-6 text-white" />
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+                  {(() => {
+                    const gid = `about-grad-${index}`;
+                    const Icon = value.icon as any;
+                    return (
+                      <Icon className="w-6 h-6" color={`url(#${gid})`}>
+                        <defs>
+                          <linearGradient id={gid} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#6EA2FF" />
+                            <stop offset="40%" stopColor="#7EA8FF" />
+                            <stop offset="100%" stopColor="#F2CC59" />
+                          </linearGradient>
+                        </defs>
+                      </Icon>
+                    );
+                  })()}
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{value.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{value.description}</p>

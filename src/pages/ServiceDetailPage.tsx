@@ -310,7 +310,7 @@ const ServiceDetailPage = () => {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">What We Deliver</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">What We <span className="text-gradient">Deliver</span></h2>
             
             <div className="grid md:grid-cols-2 gap-4">
               {service.features.map((feature: string, index: number) => (
@@ -335,7 +335,7 @@ const ServiceDetailPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our Process</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Our <span className="text-gradient">Process</span></h2>
             
             <div className="grid md:grid-cols-3 gap-6">
               {service.process.map((step: string, index: number) => (

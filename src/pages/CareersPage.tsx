@@ -128,7 +128,7 @@ const CareersPage = () => {
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Why Join DevSync Innovation?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Why Join DevSync <span className="text-gradient">Innovation?</span></h2>
 
             <div className="grid md:grid-cols-3 gap-8">
               {[
@@ -164,7 +164,7 @@ const CareersPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-accent/5 to-background" />
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Current Openings</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Current <span className="text-gradient">Openings</span></h2>
 
             <div className="space-y-6">
               {openings.map((job, index) => (
